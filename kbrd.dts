@@ -1,0 +1,72 @@
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+	part-number = "kbrd";
+	version = "00A0";
+	exclusive-use = 
+		"P8.3", "P8.4", "P8.30",
+		"P8.5", "P8.6", "P8.7",
+		"P8.8", "P8.9", "P8.10",
+		"P8.11", "P8.12", "P8.13",
+		"P8.14", "P8.15", "P8.16",
+		"P8.17", "P8.18", "P8.19",
+		"P8.20", "P8.21", "P8.22",
+		"P8.27", "P8.28", "P8.29";
+	fragment@0
+	{
+		target = <&am33xx_pinmux>;
+
+		__overlay__
+		{
+			pinctrl_test: kbrd_pins
+			{
+				pinctrl-single,pins = <
+					0x018 0x2f
+					0x01c 0x2f
+					0x008 0x2f
+					0x00c 0x2f
+					0x090 0x07	/* COL 0 */
+					0x094 0x2f	/* ROW 0 */
+					0x09c 0x17	/* COL 1 */
+					0x098 0x2f	/* ROW 1 */
+					0x034 0x0f	/* COL 2 */
+					0x030 0x2f	/* ROW 2 */
+					0x024 0x0f	/* COL 3 */
+					0x028 0x2f	/* ROW 3 */
+					0x03c 0x17	/* COL 4 */
+					0x038 0x2f	/* ROW 4 */
+					0x02c 0x07	/* COL 5 */
+					0x08c 0x2f	/* ROW 5 */
+					0x020 0x0f	/* COL 6 */
+					0x084 0x0f	/* COL 7 */
+					0x080 0x0f	/* COL 8 */
+					0x014 0x0f	/* COL 9 */
+					0x010 0x0f	/* COL 10 */
+					0x004 0x0f	/* COL 11 */
+					0x000 0x0f	/* COL 12 */
+					0x0ec 0x0f	/* COL 13 */
+					0x0d8 0x0f	/* COL 14 */
+					0x0dc 0x0f	/* COL 15 */
+					0x0d4 0x0f	/* COL 16 */
+				>;
+			};
+		};
+	};
+	
+	fragment@1
+	{
+		target = <&ocp>;
+		__overlay__
+		{
+			kbrd_helper: helper
+			{
+				compatible = "bone-pinmux-helper";
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_test>;
+				status = "okay";
+			};
+		};
+	};
+};
